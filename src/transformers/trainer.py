@@ -335,6 +335,7 @@ class Trainer:
         enable_full_determinism(self.args.seed) if self.args.full_determinism else set_seed(self.args.seed)
         self.hp_name = None
         self.deepspeed = None
+        self.deepspeed_initialized = False
         self.is_in_train = False
 
         # memory metrics - must set up as early as possible
@@ -1738,14 +1739,16 @@ class Trainer:
             or self.fsdp is not None
         )
         if args.deepspeed:
-            deepspeed_engine, optimizer, lr_scheduler = deepspeed_init(
-                self, num_training_steps=max_steps, resume_from_checkpoint=resume_from_checkpoint
-            )
-            self.model = deepspeed_engine.module
-            self.model_wrapped = deepspeed_engine
-            self.deepspeed = deepspeed_engine
-            self.optimizer = optimizer
-            self.lr_scheduler = lr_scheduler
+            if not self.deepspeed_initialized:
+                deepspeed_engine, optimizer, lr_scheduler = deepspeed_init(
+                    self, num_training_steps=max_steps, resume_from_checkpoint=resume_from_checkpoint
+                )
+                self.model = deepspeed_engine.module
+                self.model_wrapped = deepspeed_engine
+                self.deepspeed = deepspeed_engine
+                self.optimizer = optimizer
+                self.lr_scheduler = lr_scheduler
+                self.deepspeed_initialized = True
         elif not delay_optimizer_creation:
             self.create_optimizer_and_scheduler(num_training_steps=max_steps)
 
