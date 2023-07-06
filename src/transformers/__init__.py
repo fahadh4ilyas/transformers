@@ -18,7 +18,7 @@
 # to defer the actual importing for when the objects are requested. This way `import transformers` provides the names
 # in the namespace without actually importing anything (and especially none of the backends).
 
-__version__ = "4.29.2"
+__version__ = "4.30.2"
 
 from typing import TYPE_CHECKING
 
@@ -154,6 +154,10 @@ _import_structure = {
         "AutoImageProcessor",
         "AutoProcessor",
         "AutoTokenizer",
+    ],
+    "models.autoformer": [
+        "AUTOFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP",
+        "AutoformerConfig",
     ],
     "models.bart": ["BartConfig", "BartTokenizer"],
     "models.barthez": [],
@@ -383,6 +387,7 @@ _import_structure = {
     "models.mobilenet_v1": ["MOBILENET_V1_PRETRAINED_CONFIG_ARCHIVE_MAP", "MobileNetV1Config"],
     "models.mobilenet_v2": ["MOBILENET_V2_PRETRAINED_CONFIG_ARCHIVE_MAP", "MobileNetV2Config"],
     "models.mobilevit": ["MOBILEVIT_PRETRAINED_CONFIG_ARCHIVE_MAP", "MobileViTConfig"],
+    "models.mobilevitv2": ["MOBILEVITV2_PRETRAINED_CONFIG_ARCHIVE_MAP", "MobileViTV2Config"],
     "models.mpnet": ["MPNET_PRETRAINED_CONFIG_ARCHIVE_MAP", "MPNetConfig", "MPNetTokenizer"],
     "models.mt5": ["MT5Config"],
     "models.mvp": ["MvpConfig", "MvpTokenizer"],
@@ -464,6 +469,7 @@ _import_structure = {
     ],
     "models.splinter": ["SPLINTER_PRETRAINED_CONFIG_ARCHIVE_MAP", "SplinterConfig", "SplinterTokenizer"],
     "models.squeezebert": ["SQUEEZEBERT_PRETRAINED_CONFIG_ARCHIVE_MAP", "SqueezeBertConfig", "SqueezeBertTokenizer"],
+    "models.swiftformer": ["SWIFTFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP", "SwiftFormerConfig"],
     "models.swin": ["SWIN_PRETRAINED_CONFIG_ARCHIVE_MAP", "SwinConfig"],
     "models.swin2sr": ["SWIN2SR_PRETRAINED_CONFIG_ARCHIVE_MAP", "Swin2SRConfig"],
     "models.swinv2": ["SWINV2_PRETRAINED_CONFIG_ARCHIVE_MAP", "Swinv2Config"],
@@ -477,6 +483,7 @@ _import_structure = {
         "TimeSeriesTransformerConfig",
     ],
     "models.timesformer": ["TIMESFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP", "TimesformerConfig"],
+    "models.timm_backbone": ["TimmBackboneConfig"],
     "models.trajectory_transformer": [
         "TRAJECTORY_TRANSFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP",
         "TrajectoryTransformerConfig",
@@ -612,7 +619,9 @@ _import_structure = {
     ],
     "tools": [
         "Agent",
+        "AzureOpenAiAgent",
         "HfAgent",
+        "LocalAgent",
         "OpenAiAgent",
         "PipelineTool",
         "RemoteTool",
@@ -1078,6 +1087,14 @@ else:
             "AutoModelForZeroShotImageClassification",
             "AutoModelForZeroShotObjectDetection",
             "AutoModelWithLMHead",
+        ]
+    )
+    _import_structure["models.autoformer"].extend(
+        [
+            "AUTOFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
+            "AutoformerForPrediction",
+            "AutoformerModel",
+            "AutoformerPreTrainedModel",
         ]
     )
     _import_structure["models.bart"].extend(
@@ -2059,6 +2076,15 @@ else:
             "MobileViTPreTrainedModel",
         ]
     )
+    _import_structure["models.mobilevitv2"].extend(
+        [
+            "MOBILEVITV2_PRETRAINED_MODEL_ARCHIVE_LIST",
+            "MobileViTV2ForImageClassification",
+            "MobileViTV2ForSemanticSegmentation",
+            "MobileViTV2Model",
+            "MobileViTV2PreTrainedModel",
+        ]
+    )
     _import_structure["models.mpnet"].extend(
         [
             "MPNET_PRETRAINED_MODEL_ARCHIVE_LIST",
@@ -2463,6 +2489,14 @@ else:
             "SqueezeBertPreTrainedModel",
         ]
     )
+    _import_structure["models.swiftformer"].extend(
+        [
+            "SWIFTFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
+            "SwiftFormerForImageClassification",
+            "SwiftFormerModel",
+            "SwiftFormerPreTrainedModel",
+        ]
+    )
     _import_structure["models.swin"].extend(
         [
             "SWIN_PRETRAINED_MODEL_ARCHIVE_LIST",
@@ -2546,6 +2580,7 @@ else:
             "TimesformerPreTrainedModel",
         ]
     )
+    _import_structure["models.timm_backbone"].extend(["TimmBackbone"])
     _import_structure["models.trajectory_transformer"].extend(
         [
             "TRAJECTORY_TRANSFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
@@ -3120,6 +3155,15 @@ else:
             "TFDPRReader",
         ]
     )
+    _import_structure["models.efficientformer"].extend(
+        [
+            "TF_EFFICIENTFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
+            "TFEfficientFormerForImageClassification",
+            "TFEfficientFormerForImageClassificationWithTeacher",
+            "TFEfficientFormerModel",
+            "TFEfficientFormerPreTrainedModel",
+        ]
+    )
     _import_structure["models.electra"].extend(
         [
             "TF_ELECTRA_PRETRAINED_MODEL_ARCHIVE_LIST",
@@ -3394,6 +3438,13 @@ else:
             "TFRoFormerLayer",
             "TFRoFormerModel",
             "TFRoFormerPreTrainedModel",
+        ]
+    )
+    _import_structure["models.sam"].extend(
+        [
+            "TF_SAM_PRETRAINED_MODEL_ARCHIVE_LIST",
+            "TFSamModel",
+            "TFSamPreTrainedModel",
         ]
     )
     _import_structure["models.segformer"].extend(
@@ -3929,6 +3980,10 @@ if TYPE_CHECKING:
         AutoProcessor,
         AutoTokenizer,
     )
+    from .models.autoformer import (
+        AUTOFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP,
+        AutoformerConfig,
+    )
     from .models.bart import BartConfig, BartTokenizer
     from .models.beit import BEIT_PRETRAINED_CONFIG_ARCHIVE_MAP, BeitConfig
     from .models.bert import (
@@ -4141,6 +4196,7 @@ if TYPE_CHECKING:
     from .models.mobilenet_v1 import MOBILENET_V1_PRETRAINED_CONFIG_ARCHIVE_MAP, MobileNetV1Config
     from .models.mobilenet_v2 import MOBILENET_V2_PRETRAINED_CONFIG_ARCHIVE_MAP, MobileNetV2Config
     from .models.mobilevit import MOBILEVIT_PRETRAINED_CONFIG_ARCHIVE_MAP, MobileViTConfig
+    from .models.mobilevitv2 import MOBILEVITV2_PRETRAINED_CONFIG_ARCHIVE_MAP, MobileViTV2Config
     from .models.mpnet import MPNET_PRETRAINED_CONFIG_ARCHIVE_MAP, MPNetConfig, MPNetTokenizer
     from .models.mt5 import MT5Config
     from .models.mvp import MvpConfig, MvpTokenizer
@@ -4221,6 +4277,7 @@ if TYPE_CHECKING:
     )
     from .models.splinter import SPLINTER_PRETRAINED_CONFIG_ARCHIVE_MAP, SplinterConfig, SplinterTokenizer
     from .models.squeezebert import SQUEEZEBERT_PRETRAINED_CONFIG_ARCHIVE_MAP, SqueezeBertConfig, SqueezeBertTokenizer
+    from .models.swiftformer import SWIFTFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP, SwiftFormerConfig
     from .models.swin import SWIN_PRETRAINED_CONFIG_ARCHIVE_MAP, SwinConfig
     from .models.swin2sr import SWIN2SR_PRETRAINED_CONFIG_ARCHIVE_MAP, Swin2SRConfig
     from .models.swinv2 import SWINV2_PRETRAINED_CONFIG_ARCHIVE_MAP, Swinv2Config
@@ -4234,6 +4291,7 @@ if TYPE_CHECKING:
         TimeSeriesTransformerConfig,
     )
     from .models.timesformer import TIMESFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP, TimesformerConfig
+    from .models.timm_backbone import TimmBackboneConfig
     from .models.trajectory_transformer import (
         TRAJECTORY_TRANSFORMER_PRETRAINED_CONFIG_ARCHIVE_MAP,
         TrajectoryTransformerConfig,
@@ -4351,7 +4409,18 @@ if TYPE_CHECKING:
     )
 
     # Tools
-    from .tools import Agent, HfAgent, OpenAiAgent, PipelineTool, RemoteTool, Tool, launch_gradio_demo, load_tool
+    from .tools import (
+        Agent,
+        AzureOpenAiAgent,
+        HfAgent,
+        LocalAgent,
+        OpenAiAgent,
+        PipelineTool,
+        RemoteTool,
+        Tool,
+        launch_gradio_demo,
+        load_tool,
+    )
 
     # Trainer
     from .trainer_callback import (
@@ -4755,6 +4824,12 @@ if TYPE_CHECKING:
             AutoModelForZeroShotImageClassification,
             AutoModelForZeroShotObjectDetection,
             AutoModelWithLMHead,
+        )
+        from .models.autoformer import (
+            AUTOFORMER_PRETRAINED_MODEL_ARCHIVE_LIST,
+            AutoformerForPrediction,
+            AutoformerModel,
+            AutoformerPreTrainedModel,
         )
         from .models.bart import (
             BART_PRETRAINED_MODEL_ARCHIVE_LIST,
@@ -5542,6 +5617,13 @@ if TYPE_CHECKING:
             MobileViTModel,
             MobileViTPreTrainedModel,
         )
+        from .models.mobilevitv2 import (
+            MOBILEVITV2_PRETRAINED_MODEL_ARCHIVE_LIST,
+            MobileViTV2ForImageClassification,
+            MobileViTV2ForSemanticSegmentation,
+            MobileViTV2Model,
+            MobileViTV2PreTrainedModel,
+        )
         from .models.mpnet import (
             MPNET_PRETRAINED_MODEL_ARCHIVE_LIST,
             MPNetForMaskedLM,
@@ -5876,6 +5958,12 @@ if TYPE_CHECKING:
             SqueezeBertModule,
             SqueezeBertPreTrainedModel,
         )
+        from .models.swiftformer import (
+            SWIFTFORMER_PRETRAINED_MODEL_ARCHIVE_LIST,
+            SwiftFormerForImageClassification,
+            SwiftFormerModel,
+            SwiftFormerPreTrainedModel,
+        )
         from .models.swin import (
             SWIN_PRETRAINED_MODEL_ARCHIVE_LIST,
             SwinBackbone,
@@ -5941,6 +6029,7 @@ if TYPE_CHECKING:
             TimesformerModel,
             TimesformerPreTrainedModel,
         )
+        from .models.timm_backbone import TimmBackbone
         from .models.trajectory_transformer import (
             TRAJECTORY_TRANSFORMER_PRETRAINED_MODEL_ARCHIVE_LIST,
             TrajectoryTransformerModel,
@@ -6415,6 +6504,13 @@ if TYPE_CHECKING:
             TFDPRQuestionEncoder,
             TFDPRReader,
         )
+        from .models.efficientformer import (
+            TF_EFFICIENTFORMER_PRETRAINED_MODEL_ARCHIVE_LIST,
+            TFEfficientFormerForImageClassification,
+            TFEfficientFormerForImageClassificationWithTeacher,
+            TFEfficientFormerModel,
+            TFEfficientFormerPreTrainedModel,
+        )
         from .models.electra import (
             TF_ELECTRA_PRETRAINED_MODEL_ARCHIVE_LIST,
             TFElectraForMaskedLM,
@@ -6629,6 +6725,11 @@ if TYPE_CHECKING:
             TFRoFormerLayer,
             TFRoFormerModel,
             TFRoFormerPreTrainedModel,
+        )
+        from .models.sam import (
+            TF_SAM_PRETRAINED_MODEL_ARCHIVE_LIST,
+            TFSamModel,
+            TFSamPreTrainedModel,
         )
         from .models.segformer import (
             TF_SEGFORMER_PRETRAINED_MODEL_ARCHIVE_LIST,
