@@ -14,8 +14,6 @@
 # limitations under the License.
 """ Testing suite for the TensorFlow SegFormer model. """
 
-from __future__ import annotations
-
 import inspect
 import unittest
 from typing import List, Tuple

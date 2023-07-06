@@ -15,8 +15,6 @@
 """ Testing suite for the TF 2.0 Swin model. """
 
 
-from __future__ import annotations
-
 import inspect
 import unittest
 

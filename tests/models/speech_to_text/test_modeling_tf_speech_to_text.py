@@ -14,8 +14,6 @@
 # limitations under the License.
 """ Testing suite for the TensorFlow Speech2Text model. """
 
-from __future__ import annotations
-
 import inspect
 import unittest
 

@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
-
 import unittest
 
 from transformers import GPT2Config, is_tf_available
@@ -463,7 +461,7 @@ class TFGPT2ModelTest(TFModelTesterMixin, TFCoreModelTesterMixin, PipelineTester
                 continue
 
             model = model_class(config)
-            model.build()
+            model(model.dummy_inputs)
 
             onnx_model_proto, _ = tf2onnx.convert.from_keras(model, opset=self.onnx_min_opset)
 

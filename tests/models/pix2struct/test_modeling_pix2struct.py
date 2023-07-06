@@ -749,20 +749,17 @@ class Pix2StructIntegrationTest(unittest.TestCase):
         texts = ["A picture of", "An photography of"]
 
         # image only
-        inputs = processor(images=[image_1, image_2], text=texts, return_tensors="pt", add_special_tokens=False).to(
-            torch_device
-        )
+        inputs = processor(images=[image_1, image_2], text=texts, return_tensors="pt").to(torch_device)
 
         predictions = model.generate(**inputs)
 
         self.assertEqual(
-            processor.decode(predictions[0], skip_special_tokens=True),
-            "A picture of a stop sign with a red stop sign",
+            processor.decode(predictions[0], skip_special_tokens=True), "A picture of a stop sign that says yes."
         )
 
         self.assertEqual(
             processor.decode(predictions[1], skip_special_tokens=True),
-            "An photography of the Temple Bar and other places in the city.",
+            "An photography of the Temple Bar and a few other places.",
         )
 
     def test_vqa_model(self):

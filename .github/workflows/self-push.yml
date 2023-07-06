@@ -195,10 +195,6 @@ jobs:
           git checkout ${{ env.CI_SHA }}
           echo "log = $(git log -n 1)"
 
-      - name: Reinstall transformers in edit mode (remove the one installed during docker image build)
-        working-directory: /transformers
-        run: python3 -m pip uninstall -y transformers && python3 -m pip install -e .
-
       - name: Echo folder ${{ matrix.folders }}
         shell: bash
         # For folders like `models/bert`, set an env. var. (`matrix_folders`) to `models_bert`, which will be used to
@@ -287,10 +283,6 @@ jobs:
           echo "updated branch = $(git branch --show-current)"
           git checkout ${{ env.CI_SHA }}
           echo "log = $(git log -n 1)"
-
-      - name: Reinstall transformers in edit mode (remove the one installed during docker image build)
-        working-directory: /transformers
-        run: python3 -m pip uninstall -y transformers && python3 -m pip install -e .
 
       - name: Echo folder ${{ matrix.folders }}
         shell: bash
@@ -381,10 +373,6 @@ jobs:
           git checkout ${{ env.CI_SHA }}
           echo "log = $(git log -n 1)"
 
-      - name: Reinstall transformers in edit mode (remove the one installed during docker image build)
-        working-directory: /workspace/transformers
-        run: python3 -m pip uninstall -y transformers && python3 -m pip install -e .
-
       - name: Remove cached torch extensions
         run: rm -rf /github/home/.cache/torch_extensions/
 
@@ -470,10 +458,6 @@ jobs:
           echo "updated branch = $(git branch --show-current)"
           git checkout ${{ env.CI_SHA }}
           echo "log = $(git log -n 1)"
-
-      - name: Reinstall transformers in edit mode (remove the one installed during docker image build)
-        working-directory: /workspace/transformers
-        run: python3 -m pip uninstall -y transformers && python3 -m pip install -e .
 
       - name: Remove cached torch extensions
         run: rm -rf /github/home/.cache/torch_extensions/

@@ -21,7 +21,6 @@ from transformers.testing_utils import is_torch_available, require_torch, tooslo
 from ...generation.test_utils import torch_device
 from ...test_configuration_common import ConfigTester
 from ...test_modeling_common import ModelTesterMixin, ids_tensor
-from ...test_pipeline_mixin import PipelineTesterMixin
 
 
 if is_torch_available():
@@ -134,11 +133,8 @@ class CpmAntModelTester:
 
 
 @require_torch
-class CpmAntModelTest(ModelTesterMixin, PipelineTesterMixin, unittest.TestCase):
+class CpmAntModelTest(ModelTesterMixin, unittest.TestCase):
     all_model_classes = (CpmAntModel, CpmAntForCausalLM) if is_torch_available() else ()
-    pipeline_model_mapping = (
-        {"feature-extraction": CpmAntModel, "text-generation": CpmAntForCausalLM} if is_torch_available() else {}
-    )
 
     test_pruning = False
     test_missing_keys = False

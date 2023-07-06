@@ -15,8 +15,6 @@
 """ Testing suite for the TensorFlow ViTMAE model. """
 
 
-from __future__ import annotations
-
 import copy
 import inspect
 import json

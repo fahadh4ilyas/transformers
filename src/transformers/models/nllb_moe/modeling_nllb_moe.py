@@ -856,7 +856,7 @@ class NllbMoePreTrainedModel(PreTrainedModel):
     config_class = NllbMoeConfig
     base_model_prefix = "model"
     supports_gradient_checkpointing = True
-    _no_split_modules = ["NllbMoeEncoderLayer", "NllbMoeDecoderLayer"]
+    _no_split_modules = ["NllbMoeAttention"]
 
     def _init_weights(self, module):
         """Initialize the weights"""

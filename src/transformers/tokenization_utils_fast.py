@@ -249,7 +249,10 @@ class PreTrainedTokenizerFast(PreTrainedTokenizerBase):
         if isinstance(tokens, str):
             return self._convert_token_to_id_with_added_voc(tokens)
 
-        return [self._convert_token_to_id_with_added_voc(token) for token in tokens]
+        ids = []
+        for token in tokens:
+            ids.append(self._convert_token_to_id_with_added_voc(token))
+        return ids
 
     def _convert_token_to_id_with_added_voc(self, token: str) -> int:
         index = self._tokenizer.token_to_id(token)

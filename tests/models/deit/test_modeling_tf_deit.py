@@ -15,8 +15,6 @@
 """ Testing suite for the TensorFlow DeiT model. """
 
 
-from __future__ import annotations
-
 import inspect
 import unittest
 
@@ -244,7 +242,7 @@ class TFDeiTModelTest(TFModelTesterMixin, PipelineTesterMixin, unittest.TestCase
         inputs_dict = super()._prepare_for_class(inputs_dict, model_class, return_labels=return_labels)
 
         if return_labels:
-            if "labels" in inputs_dict and "labels" not in inspect.signature(model_class.call).parameters:
+            if model_class.__name__ == "DeiTForImageClassificationWithTeacher":
                 del inputs_dict["labels"]
 
         return inputs_dict

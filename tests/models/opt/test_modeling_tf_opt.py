@@ -13,8 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import annotations
-
 import unittest
 
 import numpy as np
@@ -194,7 +192,7 @@ class TFOPTModelTest(TFModelTesterMixin, PipelineTesterMixin, unittest.TestCase)
             else:
                 # Here we build the word embeddings weights if not exists.
                 # And then we retry to get the attribute once built.
-                model.build()
+                model(model.dummy_inputs)
                 if hasattr(embedding_layer, "weight"):
                     return embedding_layer.weight
                 else:

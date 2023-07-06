@@ -1192,10 +1192,8 @@ class BeitForSemanticSegmentation(BeitPreTrainedModel):
         # compute weighted loss
         loss_fct = CrossEntropyLoss(ignore_index=self.config.semantic_loss_ignore_index)
         main_loss = loss_fct(upsampled_logits, labels)
-        loss = main_loss
-        if auxiliary_logits is not None:
-            auxiliary_loss = loss_fct(upsampled_auxiliary_logits, labels)
-            loss += self.config.auxiliary_loss_weight * auxiliary_loss
+        auxiliary_loss = loss_fct(upsampled_auxiliary_logits, labels)
+        loss = main_loss + self.config.auxiliary_loss_weight * auxiliary_loss
 
         return loss
 

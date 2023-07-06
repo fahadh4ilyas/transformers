@@ -627,8 +627,7 @@ class BridgeTowerModelTrainingTest(unittest.TestCase):
         non_used_layer_names = ["text_model.pooler"]
         if model_class == BridgeTowerForMaskedLM:
             non_used_layer_names = non_used_layer_names + [
-                # This number `1` actually depends on the number of layers in `cross_modal_image_layers` (by minus 1)
-                "cross_modal_image_layers.1",
+                "cross_modal_image_layers.5",
                 "cross_modal_image_pooler",
                 "cross_modal_text_pooler",
             ]
